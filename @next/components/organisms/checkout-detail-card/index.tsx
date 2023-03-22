@@ -26,6 +26,7 @@ export const CheckoutDetailCard: FC = () => {
   const [cartItems, totalAmount] = useCheckoutDetail()
   const handleDeleteItem = (itemIndex: number): void => {
     dispatch(shopActions.removeCartItem({ itemIndex }))
+    calculatePromoAmountAmount(totalAmount, promoCode)
     calculateDiscountedAmount(totalAmount, discountCode)
   }
   const handleDiscount = (): void => {

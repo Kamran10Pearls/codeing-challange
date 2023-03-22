@@ -13,6 +13,8 @@ export const usePromo = (): any => {
     promoCode: string
   ): any => {
     setPromoAmount(0)
+
+    if (!promoCode) return
     // @ts-expect-error
     if (!promoCode || !PROMO_CODES[promoCode]) {
       enqueueSnackbar('Invalid Code!', {
@@ -26,6 +28,8 @@ export const usePromo = (): any => {
         burger.burgerType === PROMO_CODES[promoCode] &&
         burger.burgerSize === 's'
     )
+    alert(promoItems?.length)
+
     if (promoItems?.length < 2) {
       enqueueSnackbar(
         `You must have atleast two ${

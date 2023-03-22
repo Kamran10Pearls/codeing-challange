@@ -10,6 +10,7 @@ export const useDiscount = (): any => {
     discountCode: string
   ): void => {
     setDiscountedAmount(0)
+    if (!discountCode) return
     // @ts-expect-error
     if (discountCode && DISCOUNT_CODES[discountCode] && totalPrice) {
       // @ts-expect-error

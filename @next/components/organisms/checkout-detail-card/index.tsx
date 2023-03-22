@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Card, Grid, Box, TextField } from '@mui/material'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import {
   useCheckoutDetail,
   useAppDispatch,
+  useAppSelector,
   useDiscount,
   usePromo
 } from '@hooks'
@@ -17,6 +18,7 @@ import { useRouter } from 'next/router'
 
 export const CheckoutDetailCard: FC = () => {
   const router = useRouter()
+  const { burgerDetails } = useAppSelector((store) => store.shop)
   const [showDialog, setShowDialog] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [discountCode, setDiscountCode] = useState('')
@@ -26,9 +28,11 @@ export const CheckoutDetailCard: FC = () => {
   const [cartItems, totalAmount] = useCheckoutDetail()
   const handleDeleteItem = (itemIndex: number): void => {
     dispatch(shopActions.removeCartItem({ itemIndex }))
+  }
+  useEffect(() => {
     calculatePromoAmountAmount(totalAmount, promoCode)
     calculateDiscountedAmount(totalAmount, discountCode)
-  }
+  }, [burgerDetails])
   const handleDiscount = (): void => {
     calculateDiscountedAmount(totalAmount, discountCode)
   }

@@ -1,33 +1,27 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useContext } from 'react'
 import { Card, Grid, Box, TextField } from '@mui/material'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import {
-  useCheckoutDetail,
-  useAppDispatch,
-  useAppSelector,
-  useDiscount,
-  usePromo
-} from '@hooks'
+import { useCheckoutDetail, useDiscount, usePromo } from '@hooks'
 import { OrderPlacedSuccessDialog, OrdersList } from '@molecules'
-import { shopActions } from '@store'
 import { NoItemsFound } from '@atoms'
 import { useRouter } from 'next/router'
+import { ShopContext } from '@context'
 
 export const CheckoutDetailCard: FC = () => {
   const router = useRouter()
-  const { burgerDetails } = useAppSelector((store) => store.shop)
+  const { removeCartItem, burgerDetails } = useContext(ShopContext)
+
   const [showDialog, setShowDialog] = useState(false)
   const [promoCode, setPromoCode] = useState('')
   const [discountCode, setDiscountCode] = useState('')
-  const dispatch = useAppDispatch()
   const { discountedAmount, calculateDiscountedAmount } = useDiscount()
   const { promoAmount, calculatePromoAmountAmount } = usePromo()
   const [cartItems, totalAmount] = useCheckoutDetail()
   const handleDeleteItem = (itemIndex: number): void => {
-    dispatch(shopActions.removeCartItem({ itemIndex }))
+    removeCartItem(itemIndex)
   }
   useEffect(() => {
     calculatePromoAmountAmount(totalAmount, promoCode)
@@ -91,17 +85,18 @@ export const CheckoutDetailCard: FC = () => {
                   </Box>
                   {discountedAmount ? (
                     <Typography mt={2}>
-                      Discount: -${discountedAmount}
+                      Discount: -${discountedAmount?.toFixed(2)}
                     </Typography>
                   ) : null}
                   {promoAmount ? (
                     <Typography mt={2}>
-                      Promo Discount: -${promoAmount}
+                      Promo Discount: -${promoAmount?.toFixed(2)}
                     </Typography>
                   ) : null}
 
                   <Typography mt={2}>
-                    Net Total: {totalAmount - discountedAmount - promoAmount}
+                    Net Total:{' '}
+                    {(totalAmount - discountedAmount - promoAmount)?.toFixed(2)}
                   </Typography>
                 </Box>
               </Grid>

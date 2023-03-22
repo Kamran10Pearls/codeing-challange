@@ -1,55 +1,53 @@
-import { useAppSelector } from '@hooks'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { PROMO_CODES, BURGERS_LIST } from '@constants'
 import { useSnackbar } from 'notistack'
 import { getBurgerPrice } from '@utils'
+import { PromoCodeTypes } from '@types'
+import { ShopContext } from '@context'
 
 export const usePromo = (): any => {
   const { enqueueSnackbar } = useSnackbar()
+  const { burgerDetails } = useContext(ShopContext)
+
+  const showSnackbarMessage = (
+    type: 'error' | 'warning' | 'success',
+    message: string
+  ): void => {
+    enqueueSnackbar(message, {
+      variant: type
+    })
+  }
+
   const [promoAmount, setPromoAmount] = useState(0)
-  const { burgerDetails } = useAppSelector((store) => store.shop)
   const calculatePromoAmountAmount = (
     totalPrice: number,
-    promoCode: string
+    promoCode: PromoCodeTypes
   ): any => {
     setPromoAmount(0)
 
     if (!promoCode) return
-    // @ts-expect-error
-    if (!promoCode || !PROMO_CODES[promoCode]) {
-      enqueueSnackbar('Invalid Code!', {
-        variant: 'error'
-      })
+    if (!PROMO_CODES[promoCode]) {
+      showSnackbarMessage('error', 'Invalid Code!')
       return
     }
     const promoItems = burgerDetails.filter(
       (burger) =>
-        // @ts-expect-error
         burger.burgerType === PROMO_CODES[promoCode] &&
         burger.burgerSize === 's'
     )
-    alert(promoItems?.length)
 
     if (promoItems?.length < 2) {
-      enqueueSnackbar(
-        `You must have atleast two ${
-          // @ts-expect-error
-          PROMO_CODES[promoCode] as string
-        } in your cart of size small !`,
-        {
-          variant: 'error'
-        }
+      showSnackbarMessage(
+        'error',
+        `You must have atleast two ${PROMO_CODES[promoCode]} in your cart of size small !`
       )
       return
     }
     const burgerDetail = BURGERS_LIST.find(
-      // @ts-expect-error
       (val) => val.name === PROMO_CODES[promoCode]
     )
     if (!burgerDetail) {
-      enqueueSnackbar('Item Not Found!', {
-        variant: 'error'
-      })
+      showSnackbarMessage('error', 'Item Not Found!')
       return
     }
 

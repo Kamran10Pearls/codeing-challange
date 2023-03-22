@@ -36,7 +36,7 @@ export const OrdersList: FC<OrdersListTypes> = ({
               <TableCell>Name</TableCell>
               <TableCell align="right">Size</TableCell>
               <TableCell align="right">Price</TableCell>
-              <TableCell align="right">CAction</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -49,8 +49,7 @@ export const OrdersList: FC<OrdersListTypes> = ({
                   <ListItemAvatar
                     sx={{
                       display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
+                      alignItems: 'center'
                     }}
                   >
                     <Avatar alt={name} src="/images/cheeseburger.jpg" />

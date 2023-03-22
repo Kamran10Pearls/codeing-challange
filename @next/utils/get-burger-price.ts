@@ -1,5 +1,5 @@
 import { BURGER_SIZES_FACTORS } from '@constants'
-export const getBurgerPrice = (cost: number, size: string): number => {
-  // @ts-expect-error
+import { BurgerSizeTypes } from '@types'
+export const getBurgerPrice = (cost: number, size: BurgerSizeTypes): number => {
   return cost * BURGER_SIZES_FACTORS[size]
 }

@@ -1,6 +1,7 @@
+import { BurgerSizeTypes } from '@types'
 interface BurgerSizeType {
   name: string
-  value: string
+  value: BurgerSizeTypes
 }
 export const BURGER_SIZES: BurgerSizeType[] = [
   {

@@ -1,12 +1,14 @@
-import { useAppSelector } from '@hooks'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { BURGERS_LIST, BURGER_SIZES_NAMES } from '@constants'
 import { getBurgerPrice } from '@utils'
+import { BurherDetailTypes } from '@types'
+import { ShopContext } from '@context'
+
 interface ItemListType {
   name: string
   price: number
   size: string
-  image: string | undefined
+  image?: string
 }
 function createListItem(
   name: string,
@@ -22,32 +24,39 @@ function createListItem(
     image
   }
 }
+interface GetCartItemsAndTotalReturnType {
+  totalPricePerItem: number
+  cartItemsDetail: ItemListType[]
+}
+type GetCartItemsAndTotal = (
+  burgerDetails: BurherDetailTypes[]
+) => GetCartItemsAndTotalReturnType
+
+const getCartItemsAndTotal: GetCartItemsAndTotal = (burgerDetails) => {
+  const cartItemsDetail: ItemListType[] = []
+  let totalPricePerItem = 0
+  burgerDetails.forEach(({ burgerType, burgerSize }) => {
+    const burger = BURGERS_LIST.find((burger) => burger.name === burgerType)
+    if (!burger) return
+    const { name, price, image } = burger
+    const itemPricePerSize = getBurgerPrice(price, burgerSize)
+    totalPricePerItem += itemPricePerSize
+    const burgerName: string = BURGER_SIZES_NAMES[burgerSize]
+    const burgerItem = createListItem(name, itemPricePerSize, burgerName, image)
+    cartItemsDetail.push(burgerItem)
+  })
+  return { totalPricePerItem, cartItemsDetail }
+}
 
 export const useCheckoutDetail = (): any => {
-  const { burgerDetails } = useAppSelector((store) => store.shop)
+  const { burgerDetails } = useContext(ShopContext)
+
   const [total, setTotal] = useState(0)
   const [itemsList, setItemsList] = useState<ItemListType[]>([])
   // burgerType: 'Cheese Burger', burgerSize: 's'
   useEffect(() => {
-    const cartItemsDetail: ItemListType[] = []
-    let totalPricePerItem = 0
-    if (burgerDetails?.length) {
-      burgerDetails.forEach(({ burgerType, burgerSize }) => {
-        const { name, price, image } = BURGERS_LIST.find(
-          (burger) => burger.name === burgerType
-        ) ?? { name: 'Unknown', price: 0 }
-        const itemPricePerSize = getBurgerPrice(price, burgerSize)
-        totalPricePerItem += itemPricePerSize
-        const burgerItem = createListItem(
-          name,
-          itemPricePerSize,
-          // @ts-expect-error
-          BURGER_SIZES_NAMES[burgerSize],
-          image
-        )
-        cartItemsDetail.push(burgerItem)
-      })
-    }
+    const { totalPricePerItem, cartItemsDetail } =
+      getCartItemsAndTotal(burgerDetails)
     setItemsList(cartItemsDetail)
     setTotal(+totalPricePerItem?.toFixed(2))
   }, [burgerDetails])

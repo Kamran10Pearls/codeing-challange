@@ -9,13 +9,15 @@ import { BURGER_SIZES } from '@constants'
 import AddIcon from '@mui/icons-material/Add'
 import { RatingAndPrice } from '@molecules'
 import { getBurgerPrice } from '@utils'
+import { BurgerSizeTypes } from '@types'
+
 interface ProductItemTypes {
   name: string
   image: string
   price: number
   description: string
   rating: number
-  onAddProduct: (burgerType: string, burgerSize: string) => void
+  onAddProduct: (burgerType: string, burgerSize: BurgerSizeTypes) => void
 }
 
 export const ProductItem: FC<ProductItemTypes> = ({
@@ -26,7 +28,7 @@ export const ProductItem: FC<ProductItemTypes> = ({
   rating,
   price
 }) => {
-  const [burgerSize, setBurgerSize] = useState<any>('s')
+  const [burgerSize, setBurgerSize] = useState<BurgerSizeTypes>('s')
 
   return (
     <Card
@@ -61,7 +63,10 @@ export const ProductItem: FC<ProductItemTypes> = ({
             justifyContent: 'space-between'
           }}
         >
-          <ButtonGroup aria-label="outlined button group">
+          <ButtonGroup
+            aria-label="outlined button group"
+            sx={{ marginTop: '10px' }}
+          >
             {BURGER_SIZES.map(({ name, value }) => (
               <Button
                 key={value}
@@ -78,7 +83,7 @@ export const ProductItem: FC<ProductItemTypes> = ({
           <Button
             size="small"
             variant="contained"
-            sx={{ bgColor: 'pallet.common.orange' }}
+            sx={{ bgColor: 'pallet.common.orange', marginTop: '10px' }}
             startIcon={<AddIcon />}
             onClick={() => onAddProduct(name, burgerSize)}
           >

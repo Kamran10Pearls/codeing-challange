@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from 'react'
+import { FC, Dispatch, SetStateAction, useContext } from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
@@ -7,8 +7,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useAppDispatch } from '@hooks'
-import { shopActions } from '@store'
+import { ShopContext } from '@context'
+
 interface OrderPlacedSuccessDialogTypes {
   showDialog: boolean
   setShowDialog: Dispatch<SetStateAction<boolean>>
@@ -18,11 +18,12 @@ export const OrderPlacedSuccessDialog: FC<OrderPlacedSuccessDialogTypes> = ({
   showDialog,
   setShowDialog
 }) => {
+  const { clearCart } = useContext(ShopContext)
+
   const router = useRouter()
-  const dispatch = useAppDispatch()
-  const handleDialogClose = () => {
+  const handleDialogClose = (): void => {
     setShowDialog(false)
-    dispatch(shopActions.clearCart())
+    clearCart()
     void router.push('/')
   }
   return (

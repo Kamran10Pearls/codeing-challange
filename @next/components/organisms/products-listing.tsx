@@ -1,22 +1,24 @@
 import { ProductItem } from '@molecules'
 import { Grid } from '@mui/material'
-import { FC } from 'react'
-import { useAppDispatch } from '@hooks'
+import { FC, useContext } from 'react'
 import { BURGERS_LIST } from '@constants'
-import { shopActions } from '@store'
 import { useSnackbar } from 'notistack'
+import { BurgerSizeTypes } from '@types'
+import { ShopContext } from '@context'
 
 export const ProductsListing: FC = () => {
-  const dispatch = useAppDispatch()
   const { enqueueSnackbar } = useSnackbar()
+  const { addFoodItem } = useContext(ShopContext)
 
-  const handleAddOrder = (burgerType: string, burgerSize: string): void => {
-    dispatch(
-      shopActions.addFoodItem({
-        burgerType,
-        burgerSize
-      })
-    )
+  const handleAddOrder = (
+    burgerType: string,
+    burgerSize: BurgerSizeTypes
+  ): void => {
+    addFoodItem({
+      burgerType,
+      burgerSize
+    })
+
     enqueueSnackbar('Item Added to cart Successfully!', {
       variant: 'success'
     })

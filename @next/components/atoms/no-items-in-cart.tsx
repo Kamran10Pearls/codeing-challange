@@ -4,7 +4,8 @@ import { FC } from 'react'
 export const NoItemsFound: FC = () => {
   return (
     <Box
-      height={180}
+      height={280}
+      width={380}
       sx={{
         display: 'flex',
         justifyContent: 'center !important',

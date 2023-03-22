@@ -22,14 +22,14 @@
       "@styles": ["./styles"],
       "@utils": ["./@next/utils"],
       "@hooks": ["./@next/hooks"],
-      "@store": ["./@next/store"],
       "@atoms": ["./@next/components/atoms"],
       "@molecules": ["./@next/components/molecules"],
       "@organisms": ["./@next/components/organisms"],
       "@templates": ["./@next/components/templates"],
       "@pages": ["./@next/components/pages"],
       "@layouts": ["./@next/layouts"],
-      "@constants": ["./@next/constants"]
+      "@constants": ["./@next/constants"],
+      "@context": ["./@next/context"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -6,11 +6,12 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Badge from '@mui/material/Badge'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { useAppSelector } from '@hooks'
 import { useRouter } from 'next/router'
+import { ShopContext } from '@context'
 
 export const NavBar: FC = () => {
-  const { burgerDetails } = useAppSelector((store) => store.shop)
+  const { burgerDetails } = useContext(ShopContext)
+
   const router = useRouter()
 
   return (

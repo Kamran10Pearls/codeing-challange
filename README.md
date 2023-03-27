@@ -2,6 +2,12 @@
 
 This project is a coding challenge for a burger ordering app built with Next.js. The app has two discount codes that can be applied on checkout: `10OFF` and `20OFF`. Additionally, there are two static promo codes, `50HamOFF` and `50ChilliOFF`, that can be entered on checkout.
 
+### Applying promo
+
+In order to apply promo customer must have at least two small burgers of the same category.
+
+## Other Folders
+
 The project is built on an atomic project structure using the Persist Context API to maintain state and pass data to child components. TypeScript is also used in this project.
 
 For Different calculations custom hooks are created that can be found in `hooks` folder.<br />

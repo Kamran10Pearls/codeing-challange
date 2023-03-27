@@ -12,7 +12,7 @@ import { ShopContext } from '@context'
 
 export const CheckoutDetailCard: FC = () => {
   const router = useRouter()
-  const { removeCartItem, burgerDetails } = useContext(ShopContext)
+  const { removeCartItem } = useContext(ShopContext)
 
   const [showDialog, setShowDialog] = useState(false)
   const [promoCode, setPromoCode] = useState('')
@@ -22,13 +22,17 @@ export const CheckoutDetailCard: FC = () => {
   const [cartItems, totalAmount] = useCheckoutDetail()
   const handleDeleteItem = (itemIndex: number): void => {
     removeCartItem(itemIndex)
+    calculateDiscountedAmount(totalAmount, discountCode)
   }
   useEffect(() => {
     calculatePromoAmountAmount(totalAmount, promoCode)
-    calculateDiscountedAmount(totalAmount, discountCode)
-  }, [burgerDetails])
+    handleDiscount()
+  }, [cartItems])
   const handleDiscount = (): void => {
-    calculateDiscountedAmount(totalAmount, discountCode)
+    var totalSum: number = cartItems.reduce(function (acc: number, obj: any) {
+      return +acc + +obj.price
+    }, 0)
+    calculateDiscountedAmount(totalSum, discountCode)
   }
   const handlePromo = (): void => {
     calculatePromoAmountAmount(totalAmount, promoCode)

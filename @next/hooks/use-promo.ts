@@ -39,7 +39,7 @@ export const usePromo = (): any => {
     if (promoItems?.length < 2) {
       showSnackbarMessage(
         'error',
-        `You must have atleast two ${PROMO_CODES[promoCode]} in your cart of size small !`
+        `You must have at least two ${PROMO_CODES[promoCode]} in your cart of size small !`
       )
       return
     }

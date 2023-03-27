@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { BurherDetailTypes } from './context.types'
+import { BurgerDetailTypes } from './context.types'
 
-const burgerDetails: BurherDetailTypes[] = []
+const burgerDetails: BurgerDetailTypes[] = []
 
 export const ShopContext = createContext({
   burgerDetails,
-  addFoodItem: (burgerDetail: BurherDetailTypes) => {},
+  addFoodItem: (burgerDetail: BurgerDetailTypes) => {},
   removeCartItem: (index: number): void => {},
   clearCart: (): void => {}
 })
@@ -15,7 +15,7 @@ export const UserContextProvider = ({
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  const [burgerDetails, setBurgerDetails] = useState<BurherDetailTypes[]>([])
+  const [burgerDetails, setBurgerDetails] = useState<BurgerDetailTypes[]>([])
   useEffect(() => {
     const burgerDetails = localStorage.getItem('burgerDetails')
     if (burgerDetails) {
@@ -26,7 +26,7 @@ export const UserContextProvider = ({
     if (!burgerDetails?.length) return
     localStorage.setItem('burgerDetails', JSON.stringify(burgerDetails))
   }, [burgerDetails])
-  const addFoodItem = (burgerDetail: BurherDetailTypes): void => {
+  const addFoodItem = (burgerDetail: BurgerDetailTypes): void => {
     console.log('context burger details are', burgerDetail)
     setBurgerDetails([...burgerDetails, burgerDetail])
   }

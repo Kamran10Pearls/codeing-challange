@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import { BURGERS_LIST, BURGER_SIZES_NAMES } from '@constants'
 import { getBurgerPrice } from '@utils'
-import { BurherDetailTypes } from '@types'
+import { BurgerDetailTypes } from '@types'
 import { ShopContext } from '@context'
 
 interface ItemListType {
@@ -29,7 +29,7 @@ interface GetCartItemsAndTotalReturnType {
   cartItemsDetail: ItemListType[]
 }
 type GetCartItemsAndTotal = (
-  burgerDetails: BurherDetailTypes[]
+  burgerDetails: BurgerDetailTypes[]
 ) => GetCartItemsAndTotalReturnType
 
 const getCartItemsAndTotal: GetCartItemsAndTotal = (burgerDetails) => {

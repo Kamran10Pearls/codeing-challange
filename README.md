@@ -4,10 +4,10 @@ This project is a coding challenge for a burger ordering app built with Next.js.
 
 The project is built on an atomic project structure using the Persist Context API to maintain state and pass data to child components. TypeScript is also used in this project.
 
-For Different calculations custom hooks are created that can be found in `hooks` folder
-`utils` folder contains reuseable functions
-`context` folder contain implementation of contextAPI
-`constants` folder contains all the constants used in this project such as burgers, types, sizes etc
+For Different calculations custom hooks are created that can be found in `hooks` folder.<br />
+`utils` contains reuseable functions.<br />
+`context` contain implementation of contextAPI.<br />
+`constants` contains all the constants used in this project such as burgers, types, sizes etc.<br />
 
 ## Running the Project
 

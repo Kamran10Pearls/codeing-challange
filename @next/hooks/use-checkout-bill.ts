@@ -1,15 +1,9 @@
 import { useEffect, useState, useContext } from 'react'
 import { BURGERS_LIST, BURGER_SIZES_NAMES } from '@constants'
 import { getBurgerPrice } from '@utils'
-import { BurgerDetailTypes } from '@types'
+import { BurgerDetailTypes, ItemListType } from '@types'
 import { ShopContext } from '@context'
 
-interface ItemListType {
-  name: string
-  price: number
-  size: string
-  image?: string
-}
 function createListItem(
   name: string,
   price: number,

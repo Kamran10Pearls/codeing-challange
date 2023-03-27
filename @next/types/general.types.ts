@@ -5,3 +5,9 @@ export interface BurgerDetailTypes {
   burgerType: string
   burgerSize: BurgerSizeTypes
 }
+export interface ItemListType {
+  name: string
+  price: number
+  size: string
+  image?: string
+}

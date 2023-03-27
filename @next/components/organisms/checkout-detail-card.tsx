@@ -9,6 +9,7 @@ import { OrderPlacedSuccessDialog, OrdersList } from '@molecules'
 import { NoItemsFound } from '@atoms'
 import { useRouter } from 'next/router'
 import { ShopContext } from '@context'
+import { ItemListType } from '@types'
 
 export const CheckoutDetailCard: FC = () => {
   const router = useRouter()
@@ -29,9 +30,13 @@ export const CheckoutDetailCard: FC = () => {
     handleDiscount()
   }, [cartItems])
   const handleDiscount = (): void => {
-    var totalSum: number = cartItems.reduce(function (acc: number, obj: any) {
+    const totalSum: number = cartItems.reduce(function (
+      acc: number,
+      obj: ItemListType
+    ) {
       return +acc + +obj.price
-    }, 0)
+    },
+    0)
     calculateDiscountedAmount(totalSum, discountCode)
   }
   const handlePromo = (): void => {

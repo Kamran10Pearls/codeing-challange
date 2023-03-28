@@ -19,14 +19,14 @@ export const CheckoutDetailCard: FC = () => {
   const [promoCode, setPromoCode] = useState('')
   const [discountCode, setDiscountCode] = useState('')
   const { discountedAmount, calculateDiscountedAmount } = useDiscount()
-  const { promoAmount, calculatePromoAmountAmount } = usePromo()
+  const { promoAmount, calculatePromoAmount } = usePromo()
   const [cartItems, totalAmount] = useCheckoutDetail()
   const handleDeleteItem = (itemIndex: number): void => {
     removeCartItem(itemIndex)
     calculateDiscountedAmount(totalAmount, discountCode)
   }
   useEffect(() => {
-    calculatePromoAmountAmount(totalAmount, promoCode)
+    calculatePromoAmount(totalAmount, promoCode)
     handleDiscount()
   }, [cartItems])
   const handleDiscount = (): void => {
@@ -40,7 +40,7 @@ export const CheckoutDetailCard: FC = () => {
     calculateDiscountedAmount(totalSum, discountCode)
   }
   const handlePromo = (): void => {
-    calculatePromoAmountAmount(totalAmount, promoCode)
+    calculatePromoAmount(totalAmount, promoCode)
   }
   return (
     <Box>

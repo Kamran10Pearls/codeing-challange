@@ -19,7 +19,7 @@ export const usePromo = (): any => {
   }
 
   const [promoAmount, setPromoAmount] = useState(0)
-  const calculatePromoAmountAmount = (
+  const calculatePromoAmount = (
     totalPrice: number,
     promoCode: PromoCodeTypes
   ): any => {
@@ -55,5 +55,5 @@ export const usePromo = (): any => {
     setPromoAmount(discount)
   }
 
-  return { promoAmount, calculatePromoAmountAmount }
+  return { promoAmount, calculatePromoAmount }
 }
